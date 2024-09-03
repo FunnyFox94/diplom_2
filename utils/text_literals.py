@@ -12,3 +12,5 @@ BAD_CREDENTIALS = {
     "success": False,
     "message": "email or password are incorrect"
 }
+
+EMPTY_INGREDIENT_LIST = '{"success":false,"message":"Ingredient ids must be provided"}'

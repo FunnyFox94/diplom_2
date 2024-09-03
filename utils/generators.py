@@ -1,3 +1,4 @@
+import json
 import random
 import string
 
@@ -30,7 +31,6 @@ def generate_register_payload(valid_data=True, has_email=True, has_password=True
 
     if not has_name:
         payload["name"] = ""
-
     return payload
 
 
@@ -59,3 +59,12 @@ def generate_creds_for_auth(bad_password=False, bad_email=False, missing_passwor
         payload["email"] = ""
 
     return payload
+
+
+def get_ids_form_ingredients_list() -> []:  # получить список из id ингредиентов
+    response = requests.get(urls.GET_INGREDIENTS)
+    data = response.json()
+    ids_list = {
+            "ingredients": [item['_id'] for item in data['data'][:5]]
+        }
+    return ids_list

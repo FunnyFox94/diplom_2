@@ -47,3 +47,15 @@ def wrong_ingredient_hash():
         "ingredients": ["awdawd"]
     }
     return wrong_hash
+
+
+@pytest.fixture
+def new_user_data():
+    new_user_data = {
+        "success": False,
+        "user": {
+            "email": "momo@gmail.com",
+            "name": "123123123"
+        }
+    }
+    return new_user_data

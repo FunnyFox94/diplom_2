@@ -1,8 +1,5 @@
-import requests
 import src.api_client as api
 import utils.text_literals as text
-import utils.generators as generate
-import json
 
 
 class TestCreateOrder:

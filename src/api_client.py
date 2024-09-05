@@ -15,5 +15,18 @@ def create_order(payload, token):
     headers = {
         "Authorization": token
     }
-    print(type(headers))
-    return requests.post(url.CREATE_ORDER, json=payload, headers=headers)
+    return requests.post(url.ORDERS, json=payload, headers=headers)
+
+
+def get_order(token):
+    headers = {
+        "Authorization": token
+    }
+    return requests.get(url.ORDERS, headers=headers)
+
+
+def change_user_data(token, data):
+    headers = {
+        "Authorization": token
+    }
+    return requests.patch(url.USER_INFO, headers=headers)

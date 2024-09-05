@@ -14,3 +14,5 @@ BAD_CREDENTIALS = {
 }
 
 EMPTY_INGREDIENT_LIST = '{"success":false,"message":"Ingredient ids must be provided"}'
+
+NOT_AUTHORIZED = '{"success":false,"message":"You should be authorised"}'

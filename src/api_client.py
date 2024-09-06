@@ -29,4 +29,4 @@ def change_user_data(token, data):
     headers = {
         "Authorization": token
     }
-    return requests.patch(url.USER_INFO, headers=headers)
+    return requests.patch(url.USER_INFO, headers=headers, json=data)

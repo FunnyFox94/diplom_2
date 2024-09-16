@@ -9,30 +9,30 @@ import utils.generators as generate
 @allure.feature('Регистрация через API')
 class TestUserRegistration:
 
-    @allure.story('Успешная регистрация')
     @allure.severity(allure.severity_level.CRITICAL)
     @allure.title('Тест на успешную регистрацию пользователя')
-    def test_user_registration_success(self, register_data):
+    def test_user_registration_success(self):
+        register_data = generate.generate_register_payload()
         response = api.register_user(register_data)
         assert response.status_code == 200
+        assert response.json()["success"] is True
 
-    @allure.story('Регистрация с некорректными данными')
     @allure.severity(allure.severity_level.NORMAL)
     @allure.title('Тест на регистрацию с некорректными данными')
     def test_user_registration_invalid_data(self):
         response = api.register_user(generate.generate_register_payload(valid_data=False))
         assert response.status_code == 500
+        assert text.SERVER_ERROR in response.text
 
-    @allure.story('Регистрация уже существующего email')
     @allure.severity(allure.severity_level.NORMAL)
     @allure.title('Тест на регистрацию с уже существующим email')
-    def test_user_registration_already_registered_email(self, register_data):
-        response = api.register_user(register_data)
+    def test_user_registration_already_registered_email(self):
+        register_data = generate.generate_register_payload()
+        api.register_user(register_data)
         duplicate_response = api.register_user(register_data)
         assert duplicate_response.status_code == 403
         assert duplicate_response.json() == text.ALREADY_EXIST_USER
 
-    @allure.story('Регистрация с отсутствующим email')
     @allure.severity(allure.severity_level.NORMAL)
     @allure.title('Тест на регистрацию с отсутствующим email')
     def test_user_registration_missing_email(self):
@@ -40,7 +40,6 @@ class TestUserRegistration:
         assert response.status_code == 403
         assert response.json() == text.MISSING_FIELD
 
-    @allure.story('Регистрация с отсутствующим паролем')
     @allure.severity(allure.severity_level.NORMAL)
     @allure.title('Тест на регистрацию с отсутствующим паролем')
     def test_user_registration_missing_password(self):
@@ -48,7 +47,6 @@ class TestUserRegistration:
         assert response.status_code == 403
         assert response.json() == text.MISSING_FIELD
 
-    @allure.story('Регистрация с отсутствующим именем')
     @allure.severity(allure.severity_level.NORMAL)
     @allure.title('Тест на регистрацию с отсутствующим именем')
     def test_user_registration_missing_name(self):
